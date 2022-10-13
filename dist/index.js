@@ -8,7 +8,7 @@ const express_1 = __importDefault(require("express"));
 const constants_1 = require("./config/constants");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-app.get("/", (req, res) => res.send("Hello world"));
+app.get("/", (req, res) => res.send("test"));
 app.listen(constants_1.PORT, () => {
     console.log(`Server  is listening on port ${constants_1.PORT}`);
 });
