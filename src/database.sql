@@ -26,7 +26,7 @@ CREATE TABLE seasons(
 
 CREATE TABLE courses( 
 
-    id INT AUTO_INCREMENT,
+   id INT AUTO_INCREMENT,
    menu VARCHAR(50), 
 
    PRIMARY KEY(id) 
@@ -37,7 +37,7 @@ CREATE TABLE courses(
 
 CREATE TABLE permissions( 
 
-  id INT AUTO_INCREMENT,
+   id INT AUTO_INCREMENT,
    role VARCHAR(50), 
 
    PRIMARY KEY(id) 
@@ -57,13 +57,13 @@ CREATE TABLE users(
 
    password VARCHAR(50), 
 
-   id_1 INT NOT NULL, 
+   idPermission INT NOT NULL, 
 
    PRIMARY KEY(id), 
 
    UNIQUE(mail), 
 
-   FOREIGN KEY(id_1) REFERENCES permissions(id) 
+   FOREIGN KEY(idPermission) REFERENCES permissions(id) 
 
 ); 
 
@@ -78,27 +78,27 @@ CREATE TABLE recipes(
 
    description VARCHAR(400) NOT NULL, 
 
-   guests BYTE, 
+   guests SMALLINT , 
 
    created_at DATETIME, 
 
    updated_at DATETIME, 
 
-   id_1 INT NOT NULL, 
+   idCourse INT NOT NULL, 
 
-   id_2 INT, 
+   idSeason INT, 
 
-   id_3 INT NOT NULL, 
+   idUser INT NOT NULL, 
 
    PRIMARY KEY(id), 
 
    UNIQUE(slug), 
 
-   FOREIGN KEY(id_1) REFERENCES courses(id), 
+   FOREIGN KEY(idCourse) REFERENCES courses(id), 
 
-   FOREIGN KEY(id_2) REFERENCES seasons(id), 
+   FOREIGN KEY(idSeason) REFERENCES seasons(id), 
 
-   FOREIGN KEY(id_3) REFERENCES users(id) 
+   FOREIGN KEY(idUser) REFERENCES users(id) 
 
 ); 
 
@@ -106,14 +106,14 @@ CREATE TABLE recipes(
 
 CREATE TABLE steps( 
 
-  id INT AUTO_INCREMENT,
+   id INT AUTO_INCREMENT,
    content TEXT, 
 
-   id_1 INT NOT NULL, 
+   idRecipe INT NOT NULL, 
 
    PRIMARY KEY(id), 
 
-   FOREIGN KEY(id_1) REFERENCES recipes(id) 
+   FOREIGN KEY(idRecipe) REFERENCES recipes(id) 
 
 ); 
 
@@ -121,17 +121,17 @@ CREATE TABLE steps(
 
 CREATE TABLE images( 
 
-    id INT AUTO_INCREMENT,
+   id INT AUTO_INCREMENT,
 
    url VARCHAR(250), 
 
    alternate_text VARCHAR(200), 
 
-   id_1 INT NOT NULL, 
+   idRecipe INT NOT NULL, 
 
    PRIMARY KEY(id), 
 
-   FOREIGN KEY(id_1) REFERENCES recipes(id) 
+   FOREIGN KEY(idRecipe) REFERENCES recipes(id) 
 
 ); 
 
@@ -139,17 +139,17 @@ CREATE TABLE images(
 
 CREATE TABLE ingredients_recipes( 
 
-    id INT AUTO_INCREMENT,
+   idIngredient INT,
 
-   id_1 INT, 
+   idRecipe INT, 
 
-   quantty DOUBLE, 
+   quantity DOUBLE, 
 
-   PRIMARY KEY(id, id_1), 
+   PRIMARY KEY(idIngredient, idRecipe), 
 
-   FOREIGN KEY(id) REFERENCES ingredients(id), 
+   FOREIGN KEY(idIngredient) REFERENCES ingredients(id), 
 
-   FOREIGN KEY(id_1) REFERENCES recipes(id) 
+   FOREIGN KEY(idRecipe) REFERENCES recipes(id) 
 
 ); 
 
