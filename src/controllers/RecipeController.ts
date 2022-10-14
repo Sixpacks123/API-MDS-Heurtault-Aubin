@@ -11,3 +11,4 @@ export class RecipeController extends CrudController{
       Recipe.findByPk(req.params.id).then(recipe =>res.json(recipe)).catch(err =>{console.log(err);res.json("error")});
     }
 
+}
