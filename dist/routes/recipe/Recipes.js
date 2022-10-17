@@ -35,3 +35,5 @@ exports.router = express_1.default.Router({
     strict: true,
 });
 exports.router.route('/recipe/show/:id').get(Auth.authorize(['getRecipeList']), recipeController.read);
+exports.router.route('/recipe/add').post(Auth.authorize(['addRecipe']), recipeController.create);
+exports.router.route('/recipe/edit/:id').put(Auth.authorize(['updateRecipe']), recipeController.update);

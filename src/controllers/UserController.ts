@@ -1,20 +1,23 @@
-import { sequelize } from '../config/database';
-import { Request, response, Response } from "express";
-import { CrudController } from "./CrudControllers";
-import { User } from '../models/User';
-import { request } from 'http';
+import { hashSync,hash } from "bcrypt"
+import { Request, Response } from "express"
+import { userInfo } from "os"
+import { BCRYPT_ROUND } from "../config/constants"
+import { Users } from "../models/Users"
+import { CrudController } from "./CrudControllers"
+
 
 export class UserController extends CrudController{
-    create(req: Request, res: Response): void {}
-    public async read(req: Request, res: Response): Promise<void> {
-        const user =  await User.findByPk(req.params.id);
-        if (user === null) {
-          console.log('Not found!');
-        } else {
-          console.log(user instanceof User); // true
-          // Its primary key is 123
-          res.json(user)
-        }
-    }
-
+    public async signin (req: Request, res: Response): Promise<void> {
+        let userInfo = req.body
+        userInfo.password = await hash(userInfo.password, BCRYPT_ROUND);
+        Users.create(req.body)
+        .then(users =>{
+          let name = users.lastname;
+          let msg = "l'utilisateur  "+name+" a été ajouté";
+          res.json({"message ": msg})})
+        .catch(err => {
+          console.log(err);    
+          res.json({'message':'insertion impossible'})
+        })
+      }
 }

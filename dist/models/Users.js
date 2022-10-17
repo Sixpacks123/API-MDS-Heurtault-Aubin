@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
+exports.Users = void 0;
 const sequelize_1 = require("sequelize");
 const database_1 = require("../config/database");
 const permission_1 = require("./permission");
-class User extends sequelize_1.Model {
+class Users extends sequelize_1.Model {
     id;
     lastname;
     firstname;
@@ -12,8 +12,8 @@ class User extends sequelize_1.Model {
     password;
     idPermission;
 }
-exports.User = User;
-User.init({
+exports.Users = Users;
+Users.init({
     id: {
         type: sequelize_1.DataTypes.INTEGER,
         autoIncrement: true,
@@ -30,14 +30,23 @@ User.init({
     },
     mail: {
         type: sequelize_1.DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
     },
     password: {
         type: sequelize_1.DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
     },
+    idPermission: {
+        type: sequelize_1.DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'Permission',
+            key: 'id'
+        }
+    }
 }, {
     sequelize: database_1.sequelize,
-    tableName: "user"
+    tableName: "users",
+    timestamps: false
 });
-User.belongsTo(permission_1.Permission, { foreignKey: "id" });
+permission_1.Permission.hasOne(Users, { foreignKey: "idPermission" });

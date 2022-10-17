@@ -11,22 +11,19 @@ class Recipe extends sequelize_1.Model {
     description;
     guests;
     idCourse;
-    createdAt;
-    updatedAt;
+    created_At;
+    updated_At;
 }
 exports.Recipe = Recipe;
 Recipe.init({
     id: {
         type: sequelize_1.DataTypes.INTEGER,
         autoIncrement: true,
-        primaryKey: true
+        primaryKey: true,
     },
     name: {
         type: sequelize_1.DataTypes.STRING,
-        validate: {
-            isAlpha: true,
-        },
-        allowNull: false
+        allowNull: false,
     },
     slug: {
         type: sequelize_1.DataTypes.STRING,
@@ -45,14 +42,14 @@ Recipe.init({
         allowNull: false,
         references: {
             model: course_1.Course,
-            key: 'id',
-        }
-    }
+            key: "id",
+        },
+    },
 }, {
     sequelize: database_1.sequelize,
     tableName: "recipes",
     createdAt: "created_At",
-    updatedAt: "updated_At"
+    updatedAt: "updated_At",
 });
 Recipe.belongsTo(course_1.Course, { foreignKey: "idCourse" });
 course_1.Course.hasOne(Recipe, { foreignKey: "idCourse" });

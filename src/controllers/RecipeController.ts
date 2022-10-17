@@ -16,5 +16,25 @@ export class RecipeController extends CrudController{
         res.json({'message':'insertion impossible'})
       })
     }
+    public update(req: Request, res: Response): void {
+      let id = req.params.id;
+      let recipeUpdate = req.body
+
+      Recipe.findByPk(id)
+      .then(recipe =>{
+        if(recipe !== null) {
+          recipe.set(recipeUpdate);
+          recipe.save();
+          res.json({'message':'recipe updated'})
+        }else{
+          res.json({'message':'recipe not updated'})
+        }
+        
+        })
+      .catch(err => {
+        res.json({'message':'modification impossible'})
+      });
+      
+    }
 
 }

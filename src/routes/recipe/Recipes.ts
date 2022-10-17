@@ -8,4 +8,5 @@ export const router = express.Router({
 });
 
 router.route('/recipe/show/:id').get(Auth.authorize(['getRecipeList']),recipeController.read)
-router.post('recipe/add',recipeController.create)
+router.route('/recipe/add').post(Auth.authorize(['addRecipe']),recipeController.create)
+router.route('/recipe/edit/:id').put(Auth.authorize(['updateRecipe']),recipeController.update)
