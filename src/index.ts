@@ -13,7 +13,7 @@ const options : cors.CorsOptions = {
     origin: allowedOrigins
 };
 app.use(express.json());
-
+app.post('/recipe/add',router);
 app.get('/recipe/show/:id',router);
 
 if(process.env.NODE_ENV !== 'production'){

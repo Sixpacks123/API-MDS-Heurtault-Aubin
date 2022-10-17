@@ -8,4 +8,4 @@ export const router = express.Router({
 });
 
 router.route('/recipe/show/:id').get(Auth.authorize(['getRecipeList']),recipeController.read)
-
+router.post('recipe/add',recipeController.create)
