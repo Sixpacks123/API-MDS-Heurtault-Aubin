@@ -31,8 +31,7 @@ class UserController extends CrudControllers_1.CrudController {
         const plainPassword = req.body.password;
         const user = await Users_1.Users.findOne({ where: { mail: mail } });
         const permisson = await permission_1.Permission.findByPk(user.idPermission);
-        if (user === null) {
-            console.log(user.toJSON());
+        if (user == null) {
             res.status(http_status_1.default.UNAUTHORIZED).json({ message: "Invalid user" });
             return;
         }

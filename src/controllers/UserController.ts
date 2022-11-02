@@ -30,8 +30,7 @@ export class UserController extends CrudController{
       const user = await Users.findOne({ where: { mail:mail } });
       const permisson = await Permission.findByPk(user!.idPermission);
 
-      if (user === null) {
-        console.log(user.toJSON())
+      if (user == null) {
         res.status(status.UNAUTHORIZED).json({ message  : "Invalid user" }); 
         return; 
       }
