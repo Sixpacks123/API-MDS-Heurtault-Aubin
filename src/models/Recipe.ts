@@ -1,6 +1,7 @@
 import {Model, DataTypes} from 'sequelize'
 import { sequelize } from '../config/database';
 import { Course } from './course';
+import { Users } from './Users';
 export class Recipe extends Model { 
 
     public id!: number; 
@@ -46,6 +47,14 @@ export class Recipe extends Model {
           model: Course, 
           key: "id", 
         }, 
+      },
+      idUser: { 
+        type: DataTypes.INTEGER, 
+        allowNull: false, 
+        references: { 
+          model: Users, 
+          key: "id", 
+        }, 
       }, 
     }, 
     { 
@@ -59,3 +68,4 @@ export class Recipe extends Model {
   Recipe.belongsTo(Course, { foreignKey: "idCourse" }); 
   
   Course.hasOne(Recipe, { foreignKey: "idCourse" }); 
+  Recipe.belongsTo(Users, { foreignKey: "idUser"});

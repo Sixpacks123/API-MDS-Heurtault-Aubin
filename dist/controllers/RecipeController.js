@@ -3,9 +3,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RecipeController = void 0;
 const CrudControllers_1 = require("./CrudControllers");
 const Recipe_1 = require("../models/Recipe");
+const course_1 = require("../models/course");
+const Users_1 = require("../models/Users");
 class RecipeController extends CrudControllers_1.CrudController {
-    read(req, res) {
-        Recipe_1.Recipe.findByPk(req.params.id).then(recipe => res.json(recipe)).catch(err => { console.log(err); res.json("error"); });
+    async read(req, res) {
+        Recipe_1.Recipe.findByPk(req.params.id, { include: [course_1.Course, Users_1.Users] })
+            .then(recipe => res.json(recipe))
+            .catch(err => {
+            console.log(err);
+            res.json("error");
+        });
     }
     create(req, res) {
         Recipe_1.Recipe.create(req.body)

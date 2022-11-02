@@ -3,10 +3,17 @@ import { Request, response, Response } from "express";
 import { CrudController } from "./CrudControllers";
 import { Recipe } from '../models/Recipe';
 import { request } from 'http';
+import { IngredientsRecipe } from '../models/IngredientsRecipe';
+import { Ingredients } from '../models/ingredients';
+import { Course } from '../models/course';
+import { Users } from '../models/Users';
 
 export class RecipeController extends CrudController{
-    public  read(req: Request, res: Response): void {
-      Recipe.findByPk(req.params.id).then(recipe =>res.json(recipe)).catch(err =>{console.log(err);res.json("error")});
+    public  async read(req: Request, res: Response): Promise<void> {
+      Recipe.findByPk(req.params.id, {include: [Course, Users]})
+      .then(recipe =>res.json(recipe))
+      .catch(err =>{console.log(err);
+        res.json("error")});
     }
 
     public create(req: Request, res: Response): void {

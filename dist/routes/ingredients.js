@@ -26,14 +26,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.router = void 0;
+exports.ingredientsRouter = void 0;
 const express_1 = __importDefault(require("express"));
-const RecipeController_1 = require("../../controllers/RecipeController");
-const Auth = __importStar(require("../../middleware/authenticate"));
-const recipeController = new RecipeController_1.RecipeController();
-exports.router = express_1.default.Router({
+const IngredientsControllers_1 = require("../controllers/IngredientsControllers");
+const Auth = __importStar(require("../middleware/authenticate"));
+const ingredientsControllers = new IngredientsControllers_1.IngredientsControllers();
+exports.ingredientsRouter = express_1.default.Router({
     strict: true,
 });
-exports.router.route('/recipe/show/:id').get(Auth.authorize(['admin']), recipeController.read);
-exports.router.route('/recipe/add').post(Auth.authorize(['admin']), recipeController.create);
-exports.router.route('/recipe/edit/:id').put(Auth.authorize(['admin']), recipeController.update);
+exports.ingredientsRouter.route('/ingredients/show/:id').get(Auth.authorize(['admin']), ingredientsControllers.read);
+exports.ingredientsRouter.route('/ingredients/add').post(Auth.authorize(['admin']), ingredientsControllers.create);
+exports.ingredientsRouter.route('/ingredients/edit/:id').put(Auth.authorize(['admin']), ingredientsControllers.update);

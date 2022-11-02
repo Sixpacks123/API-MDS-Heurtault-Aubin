@@ -9,6 +9,7 @@ const jwt_1 = require("./authenticate/jwt");
 const constants_1 = require("./config/constants");
 const Recipes_1 = require("./routes/recipe/Recipes");
 const authenticateRouter_1 = require("./routes/auth/authenticateRouter");
+const ingredients_1 = require("./routes/ingredients");
 const app = (0, express_1.default)();
 const allowedOrigins = ['http://localhost:8000'];
 const options = {
@@ -20,6 +21,9 @@ app.post('/recipe/add', Recipes_1.router);
 app.put('/recipe/edit/:id', Recipes_1.router);
 app.post('/signin', authenticateRouter_1.autenticateRouter);
 app.post('/login', authenticateRouter_1.autenticateRouter);
+app.get('/ingredients/show/:id', ingredients_1.ingredientsRouter);
+app.post('/ingredients/add', ingredients_1.ingredientsRouter);
+app.post('/ingredients/edit/:id', ingredients_1.ingredientsRouter);
 if (process.env.NODE_ENV !== 'production') {
     console.log('le token JWT: ', (0, jwt_1.generateToken)("aubin", "aub.heurtault@gmail.com", "admin"));
 }

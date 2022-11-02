@@ -6,7 +6,7 @@ import { generateToken } from './authenticate/jwt';
 import {PORT} from './config/constants';
 import { router } from './routes/recipe/Recipes';
 import { autenticateRouter } from './routes/auth/authenticateRouter'
-
+import { ingredientsRouter } from './routes/ingredients'
 
 const app = express();
 const allowedOrigins = ['http://localhost:8000'];
@@ -20,7 +20,9 @@ app.post('/recipe/add',router);
 app.put('/recipe/edit/:id',router);
 app.post('/signin',autenticateRouter);
 app.post('/login',autenticateRouter);
-
+app.get('/ingredients/show/:id',ingredientsRouter);
+app.post('/ingredients/add',ingredientsRouter);
+app.post('/ingredients/edit/:id',ingredientsRouter);
 if(process.env.NODE_ENV !== 'production'){
     console.log('le token JWT: ', generateToken("aubin", "aub.heurtault@gmail.com","admin"));
 }

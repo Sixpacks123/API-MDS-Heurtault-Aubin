@@ -4,6 +4,7 @@ exports.Recipe = void 0;
 const sequelize_1 = require("sequelize");
 const database_1 = require("../config/database");
 const course_1 = require("./course");
+const Users_1 = require("./Users");
 class Recipe extends sequelize_1.Model {
     id;
     name;
@@ -45,6 +46,14 @@ Recipe.init({
             key: "id",
         },
     },
+    idUser: {
+        type: sequelize_1.DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: Users_1.Users,
+            key: "id",
+        },
+    },
 }, {
     sequelize: database_1.sequelize,
     tableName: "recipes",
@@ -53,3 +62,4 @@ Recipe.init({
 });
 Recipe.belongsTo(course_1.Course, { foreignKey: "idCourse" });
 course_1.Course.hasOne(Recipe, { foreignKey: "idCourse" });
+Recipe.belongsTo(Users_1.Users, { foreignKey: "idUser" });
