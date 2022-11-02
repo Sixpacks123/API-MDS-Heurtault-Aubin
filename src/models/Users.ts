@@ -3,12 +3,12 @@ import { sequelize } from '../config/database'
 import { Permission } from './permission';
 export class Users extends Model 
 { 
-    public id!: number; 
-    public lastname!: string; 
-    public firstname!: string; 
-    public mail!: string; 
-    public password! : string; 
-    public idPermission! : number;
+    declare id: number; 
+    declare lastname: string; 
+    declare firstname: string; 
+    declare mail: string; 
+    declare password : string; 
+    declare idPermission: number;
 
 } 
 

@@ -5,12 +5,6 @@ const sequelize_1 = require("sequelize");
 const database_1 = require("../config/database");
 const permission_1 = require("./permission");
 class Users extends sequelize_1.Model {
-    id;
-    lastname;
-    firstname;
-    mail;
-    password;
-    idPermission;
 }
 exports.Users = Users;
 Users.init({

@@ -22,7 +22,7 @@ app.post('/signin',autenticateRouter);
 app.post('/login',autenticateRouter);
 
 if(process.env.NODE_ENV !== 'production'){
-    console.log('le token JWT: ', generateToken());
+    console.log('le token JWT: ', generateToken("aubin", "aub.heurtault@gmail.com","admin"));
 }
 app.listen(PORT, ()=> {
     console.log(`Server  is listening on port ${PORT}`)

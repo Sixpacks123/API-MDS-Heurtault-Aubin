@@ -3,8 +3,10 @@ import { Request, Response } from "express"
 import { userInfo } from "os"
 import { generateToken } from "../authenticate/jwt"
 import { BCRYPT_ROUND } from "../config/constants"
+import { Permission } from "../models/permission"
 import { Users } from "../models/Users"
 import { CrudController } from "./CrudControllers"
+import status from 'http-status';
 
 
 export class UserController extends CrudController{
@@ -21,21 +23,22 @@ export class UserController extends CrudController{
           res.json({'message':'insertion impossible'})
         })
       }
-    public async login  (req: Request, res: Response): Promise<void> {
-        const plainPassword = req.body.password;
-        const mail = req.body.email;
 
-        const user = await Users.findOne({where: {mail: mail}});
-        if (user === null){
-            res.json({"message": 'invalid credentials'})
-        }else{
-            const isMatch = await compare(plainPassword, user.password);
-            if (!isMatch){
-                res.json({"message": 'invalid credentials'})
-            }else{
-                res.json({"token": generateToken()});
-            }
+    public async login(req: Request, res: Response): Promise<any> {
+      const mail = req.body.email;
+      const plainPassword = req.body.password;
+      const user = await Users.findOne({ where: { mail:mail } });
+      const permisson = await Permission.findByPk(user!.idPermission);
+
+      if (user === null) {
+        console.log(user.toJSON())
+        res.status(status.UNAUTHORIZED).json({ message  : "Invalid user" }); 
+        return; 
+      }
+      const bMacth = await compare(plainPassword, user!.password);
+      if (!bMacth) {
+        res.status(status.UNAUTHORIZED).json({ message  : "Invalid credential" });
     }
-
-}
+    res.status(status.OK).json({'token' : generateToken(user!.lastname, user!.mail, permisson!.role)});
+    }
 }

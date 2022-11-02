@@ -21,7 +21,7 @@ app.put('/recipe/edit/:id', Recipes_1.router);
 app.post('/signin', authenticateRouter_1.autenticateRouter);
 app.post('/login', authenticateRouter_1.autenticateRouter);
 if (process.env.NODE_ENV !== 'production') {
-    console.log('le token JWT: ', (0, jwt_1.generateToken)());
+    console.log('le token JWT: ', (0, jwt_1.generateToken)("aubin", "aub.heurtault@gmail.com", "admin"));
 }
 app.listen(constants_1.PORT, () => {
     console.log(`Server  is listening on port ${constants_1.PORT}`);

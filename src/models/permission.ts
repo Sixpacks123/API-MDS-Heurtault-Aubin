@@ -4,8 +4,8 @@ import { sequelize } from '../config/database'
 
 export class Permission extends Model
 {
-    public id!: number;
-    public role!: string;
+    declare id: number;
+    declare role: string;
 }
 
 Permission.init({
@@ -14,7 +14,7 @@ Permission.init({
         autoIncrement: true,
         primaryKey: true
     },
-    menu: {
+    role: {
         type: DataTypes.STRING,
         allowNull: true
     },

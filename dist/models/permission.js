@@ -5,8 +5,6 @@ const sequelize_1 = require("sequelize");
 const database_1 = require("../config/database");
 //import { User } from './User';
 class Permission extends sequelize_1.Model {
-    id;
-    role;
 }
 exports.Permission = Permission;
 Permission.init({
@@ -15,7 +13,7 @@ Permission.init({
         autoIncrement: true,
         primaryKey: true
     },
-    menu: {
+    role: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: true
     },
