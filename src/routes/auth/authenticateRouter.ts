@@ -9,4 +9,4 @@ export const autenticateRouter = express.Router({
 });
 
 autenticateRouter.route('/signin').post(userController.signin)
-//autenticateRouter.route('/login').post(userController.build)
+autenticateRouter.route('/login').post(userController.login)

@@ -11,4 +11,4 @@ exports.autenticateRouter = express_1.default.Router({
     strict: true,
 });
 exports.autenticateRouter.route('/signin').post(userController.signin);
-//autenticateRouter.route('/login').post(userController.build)
+exports.autenticateRouter.route('/login').post(userController.login);
